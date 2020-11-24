@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="content" style="display: flex;">
+        <input type="text" id="inputText">
+        <input type="button" value="Add" id="addBtn">
+        <input style="display: none;" type="button" value="Update" id="updateBtn"/>
+    </div>
+    <div id="products">
+       
+
+    </div>
+    <script>
+        let products = [
+            "Sony Xperia",
+            "Nokia 6",
+            "Iphone 11 Pro",
+            "Samsung Galaxy",
+            "Oppo",
+            "Ubuntu phone"
+        ];
+        //function them san pham
+        document.getElementById("addBtn").addEventListener("click",add);
+        function add(){
+            let input = document.getElementById("inputText").value;
+            products.push(input);
+            // ở đây phải có 1 hàm tạo bảng để vẽ thêm bảng
+            drawTable();
+            document.getElementById("inputText").value="";
+        }
+        function drawTable(){
+            let content = "<table>";
+            for(let i =0 ; i<products.length;i++ ){
+                content+= `
+                <tr>
+                    <td>${products[i]}</td>
+                    <td><button onclick='editItem(${i})'>Edit</button></td>
+                    <td><button onclick='deleteItem(${i})'>Delete</button></td>
+                </tr>
+                `
+            }
+            content+= "</table>";
+            document.getElementById("products").innerHTML = content;
+        }
+        drawTable();
+        function deleteItem(index){
+            products = products.filter(function(value,indexProduct){
+                //tra ve vi tri index neu index tai mang == index tai button thi dung ham filter loc ra 
+                return index !== indexProduct;
+            })
+            drawTable();
+        }
+        function editItem(index){
+            document.getElementById("inputText").value = products[index];
+            document.getElementById("updateBtn").style.display = "block"
+            document.getElementById("updateBtn").addEventListener("click",updateValue(index));
+        }
+        function updateValue(index){
+              products[index] =  document.getElementById("inputText").value;
+              console.log(products)
+        }
+       
+    </script>
+</body>
+
+</html>
