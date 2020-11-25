@@ -26,6 +26,7 @@
             "Oppo",
             "Ubuntu phone"
         ];
+       
         //function them san pham
         document.getElementById("addBtn").addEventListener("click",add);
         function add(){
@@ -57,10 +58,14 @@
             })
             drawTable();
         }
+     
         function editItem(index){
             document.getElementById("inputText").value = products[index];
             document.getElementById("updateBtn").style.display = "block"
-            document.getElementById("updateBtn").addEventListener("click",updateValue(index));
+          
+            document.getElementById("updateBtn").setAttribute("onclick",`updateValue(${index})`);
+            console.log(products)
+             drawTable();
         }
         function updateValue(index){
               products[index] =  document.getElementById("inputText").value;
